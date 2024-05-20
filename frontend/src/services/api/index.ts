@@ -1,8 +1,6 @@
 import axios from "axios";
 import cookie from "js-cookie";
 
-import router from "@/plugins/router";
-
 const api = axios.create({ baseURL: "/api", timeout: 120000 });
 
 // Set CSRF header for all requests

@@ -10,10 +10,28 @@ import storeDownload from "@/stores/download";
 import type { Rom } from "@/stores/roms";
 import { getDownloadLink } from "@/utils";
 
-import ATARI2600 from "./fixtures/atari2600";
+import atari2600 from "./fixtures/atari2600";
+import atari7800 from "./fixtures/atari7800";
+import c64 from "./fixtures/c64";
+import gb from "./fixtures/gb";
+import gba from "./fixtures/gba";
+import gbc from "./fixtures/gbc";
+import genesis from "./fixtures/genesis";
+import nes from "./fixtures/nes";
+import sms from "./fixtures/sms";
+import snes from "./fixtures/snes";
 
 export const ROMS: Record<number, CursorPage_RomSchema_> = {
-  1: ATARI2600,
+  35: atari2600,
+  39: atari7800,
+  38: c64,
+  6: gb,
+  7: gba,
+  8: gbc,
+  9: genesis,
+  16: nes,
+  40: sms,
+  23: snes,
 };
 
 export const romApi = api;
@@ -65,7 +83,7 @@ async function getRoms({
 }
 
 async function getRecentRoms(): Promise<{ data: CursorPage_RomSchema_ }> {
-  return { data: ATARI2600 };
+  return { data: nes };
 }
 
 async function getRom({ romId }: { romId: number }): Promise<{ data: Rom }> {

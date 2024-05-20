@@ -24,14 +24,14 @@ const PLATFORMS = [
     id: 35,
     slug: "2600",
     fs_slug: "2600",
-    igdb_id: 35,
-    moby_id: 35,
+    igdb_id: 1,
+    moby_id: 1,
     name: "Atari 2600",
     rom_count: 34,
     firmware_files: [],
   },
   {
-    id: 2,
+    id: 39,
     slug: "7800",
     fs_slug: "7800",
     igdb_id: 2,
@@ -41,7 +41,7 @@ const PLATFORMS = [
     firmware_files: [],
   },
   {
-    id: 3,
+    id: 38,
     slug: "c64",
     fs_slug: "c64",
     igdb_id: 3,
@@ -51,7 +51,7 @@ const PLATFORMS = [
     firmware_files: [],
   },
   {
-    id: 4,
+    id: 6,
     slug: "gb",
     fs_slug: "gb",
     igdb_id: 4,
@@ -61,7 +61,7 @@ const PLATFORMS = [
     firmware_files: [],
   },
   {
-    id: 5,
+    id:7,
     slug: "gba",
     fs_slug: "gba",
     igdb_id: 5,
@@ -71,7 +71,7 @@ const PLATFORMS = [
     firmware_files: [],
   },
   {
-    id: 6,
+    id: 8,
     slug: "gbc",
     fs_slug: "gbc",
     igdb_id: 6,
@@ -81,7 +81,7 @@ const PLATFORMS = [
     firmware_files: [],
   },
   {
-    id: 7,
+    id: 9,
     slug: "genesis",
     fs_slug: "genesis",
     igdb_id: 7,
@@ -91,7 +91,7 @@ const PLATFORMS = [
     firmware_files: [],
   },
   {
-    id: 8,
+    id: 100,
     slug: "gg",
     fs_slug: "gg",
     igdb_id: 8,
@@ -101,7 +101,7 @@ const PLATFORMS = [
     firmware_files: [],
   },
   {
-    id: 9,
+    id: 16,
     slug: "nes",
     fs_slug: "nes",
     igdb_id: 9,
@@ -111,7 +111,7 @@ const PLATFORMS = [
     firmware_files: [],
   },
   {
-    id: 11,
+    id: 40,
     slug: "sms",
     fs_slug: "sms",
     igdb_id: 11,
@@ -121,7 +121,7 @@ const PLATFORMS = [
     firmware_files: [],
   },
   {
-    id: 12,
+    id: 23,
     slug: "snes",
     fs_slug: "snes",
     igdb_id: 12,
