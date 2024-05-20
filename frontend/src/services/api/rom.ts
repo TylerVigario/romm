@@ -20,15 +20,7 @@ async function uploadRoms({
   platformId: number;
   romsToUpload: File[];
 }): Promise<{ data: AddRomsResponse }> {
-  let formData = new FormData();
-  romsToUpload.forEach((rom) => formData.append("roms", rom));
-
-  return api.post("/roms", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-    params: { platform_id: platformId },
-  });
+  return { data: { uploaded_roms: [], skipped_roms: [] } };
 }
 
 async function getRoms({

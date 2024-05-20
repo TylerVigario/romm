@@ -7,20 +7,11 @@ async function login(
   username: string,
   password: string
 ): Promise<{ data: MessageResponse }> {
-  return api.post(
-    "/login",
-    {},
-    {
-      auth: {
-        username: username,
-        password: password,
-      },
-    }
-  );
+  return { data: { msg: "Login successful" } };
 }
 
 async function logout(): Promise<{ data: MessageResponse }> {
-  return api.post("/logout", {});
+  return { data: { msg: "Logout successful" } };
 }
 
 export default {

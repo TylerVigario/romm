@@ -13,15 +13,7 @@ async function uploadStates({
   states: File[];
   emulator?: string;
 }): Promise<{ data: UploadedStatesResponse }> {
-  let formData = new FormData();
-  states.forEach((state) => formData.append("states", state));
-
-  return api.post("/states", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-    params: { rom_id: rom.id, emulator },
-  });
+  return { data: { uploaded: 0, states: [] } };
 }
 
 async function updateState({
@@ -31,10 +23,7 @@ async function updateState({
   state: StateSchema;
   file: File;
 }): Promise<{ data: StateSchema }> {
-  var formData = new FormData();
-  formData.append("file", file);
-
-  return api.put(`/states/${state.id}`, formData);
+  return { data: state };
 }
 
 async function deleteStates({
@@ -44,10 +33,7 @@ async function deleteStates({
   states: StateSchema[];
   deleteFromFs: boolean;
 }) {
-  return api.post("/states/delete", {
-    states: states.map((s) => s.id),
-    delete_from_fs: deleteFromFs,
-  });
+  return { data: { deleted: 0 } };
 }
 
 export default {

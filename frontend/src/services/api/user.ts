@@ -4,6 +4,27 @@ import type { User } from "@/stores/users";
 
 export const userApi = api;
 
+const USER: UserSchema = {
+  id: 0,
+  username: "demouser",
+  role: "viewer",
+  enabled: true,
+  oauth_scopes: [
+    "me.read",
+    "me.write",
+    "roms.read",
+    "platforms.read",
+    "assets.read",
+    "assets.write",
+    "firmware.read",
+    "notes.read",
+    "notes.write",
+  ],
+  avatar_path: "",
+  last_active: new Date().toISOString(),
+  last_login: new Date().toISOString(),
+}
+
 async function createUser({
   username,
   password,
@@ -13,50 +34,34 @@ async function createUser({
   password: string;
   role: string;
 }): Promise<{ data: UserSchema }> {
-  return api.post("/users", {}, { params: { username, password, role } });
+  return { data: USER };
 }
 
 async function fetchUsers(): Promise<{ data: UserSchema[] }> {
-  return api.get("/users");
+  return { data: [USER] }
 }
 
 async function fetchUser(user: User): Promise<{ data: UserSchema }> {
-  return api.get(`/users/${user.id}`);
+  return { data: USER }
 }
 
 async function fetchCurrentUser(): Promise<{ data: UserSchema | null }> {
-  return api.get("/users/me");
+  return { data: USER }
 }
 
 async function updateUser({
   id,
   avatar,
   ...attrs
-}: UserSchema &  {
+}: UserSchema & {
   avatar?: File[];
   password?: string;
 }): Promise<{ data: UserSchema }> {
-  return api.put(
-    `/users/${id}`,
-    {
-      avatar: avatar || null,
-    },
-    {
-      headers: {
-        "Content-Type": avatar ? "multipart/form-data" : "application/json",
-      },
-      params: {
-        username: attrs.username,
-        password: attrs.password,
-        enabled: attrs.enabled,
-        role: attrs.role,
-      },
-    }
-  );
+  return { data: USER };
 }
 
 async function deleteUser(user: User): Promise<{ data: MessageResponse }> {
-  return api.delete(`/users/${user.id}`);
+  return { data: { msg: "User deleted" } };
 }
 
 export default {

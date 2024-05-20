@@ -58,10 +58,8 @@ window.EJS_core =
     props.rom.platform_slug.toLowerCase() as EJSPlatformSlug
   ];
 window.EJS_gameID = props.rom.id;
-window.EJS_gameUrl = `/api/roms/${props.rom.id}/content/${props.rom.file_name}`;
-window.EJS_biosUrl = props.bios
-  ? `/api/firmware/${props.bios.id}/content/${props.bios.file_name}`
-  : "";
+window.EJS_gameUrl = `https://raw.githubusercontent.com/webrcade/webrcade-default-feed/main/content/${props.rom.platform_slug}/${props.rom.file_name}`;
+window.EJS_biosUrl = "";
 window.EJS_player = "#game";
 window.EJS_pathtodata = "/assets/emulatorjs/";
 window.EJS_color = "#A453FF";

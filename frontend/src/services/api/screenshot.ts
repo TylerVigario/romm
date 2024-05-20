@@ -11,15 +11,7 @@ async function uploadScreenshots({
   rom: Rom;
   screenshots: File[];
 }): Promise<{ data: UploadedScreenshotsResponse }> {
-  let formData = new FormData();
-  screenshots.forEach((screenshot) => formData.append("screenshots", screenshot));
-
-  return api.post("/screenshots", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-    params: { rom_id: rom.id },
-  });
+  return { data: { uploaded: 0, screenshots: [], url_screenshots: [], merged_screenshots: [] } };
 }
 
 async function updateScreenshot({
@@ -29,10 +21,7 @@ async function updateScreenshot({
   screenshot: ScreenshotSchema;
   file: File;
 }): Promise<{ data: ScreenshotSchema }> {
-  var formData = new FormData();
-  formData.append("file", file);
-
-  return api.put(`/screenshots/${screenshot.id}`, formData);
+  return { data: screenshot };
 }
 
 export default {

@@ -8,11 +8,7 @@ async function getFirmware({
 }: {
   platformId?: number | null;
 }): Promise<{ data: FirmwareSchema[] }> {
-  return firmwareApi.get(`/firmware`, {
-    params: {
-      platform_id: platformId,
-    },
-  });
+  return { data: [] }
 }
 
 async function uploadFirmware({
@@ -22,15 +18,7 @@ async function uploadFirmware({
   platformId: number;
   files: File[];
 }): Promise<{ data: AddFirmwareResponse }> {
-  const formData = new FormData();
-  files.forEach((file) => formData.append("files", file));
-
-  return firmwareApi.post(`/firmware`, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-    params: { platform_id: platformId },
-  });
+  return { data: { uploaded: 0, firmware: [] } };
 }
 
 async function deleteFirmware({
@@ -40,10 +28,7 @@ async function deleteFirmware({
   firmware: FirmwareSchema[];
   deleteFromFs: boolean;
 }) {
-  return api.post("/firmware/delete", {
-    firmware: firmware.map((s) => s.id),
-    delete_from_fs: deleteFromFs,
-  });
+  return { data: { deleted: 0 } };
 }
 
 export default {

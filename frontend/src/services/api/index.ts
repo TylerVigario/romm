@@ -14,12 +14,6 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 403) {
-      router.push({
-        name: "login",
-        params: { next: router.currentRoute.value.path },
-      });
-    }
     return Promise.reject(error);
   }
 );
