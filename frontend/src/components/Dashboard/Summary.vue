@@ -12,9 +12,14 @@ const stats = ref({
 });
 
 onBeforeMount(() => {
-  api.get("/stats").then(({ data }) => {
-    stats.value = data;
-  });
+  stats.value = {
+    PLATFORMS: 12,
+    ROMS: 0,
+    SAVES: 0,
+    STATES: 0,
+    SCREENSHOTS: 0,
+    FILESIZE: 0,
+  };
 });
 </script>
 <template>

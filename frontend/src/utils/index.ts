@@ -87,7 +87,7 @@ export function getDownloadLink({
   files.forEach((file) => {
     filesParams += `files=${file}&`;
   });
-  return `/api/roms/${rom.id}/content/${rom.file_name}?${filesParams}`;
+  return `https://raw.githubusercontent.com/webrcade/webrcade-default-feed/main/content/${rom.platform_slug}/${rom.file_name}`;
 }
 
 /**
@@ -282,9 +282,11 @@ export const platformSlugEJSCoreMap = {
   amiga: "puae",
   arcade: "mame2003_plus",
   atari2600: "stella2014",
+  "2600": "stella2014",
   "atari-2600-plus": "stella2014",
   atari5200: "a5200",
   atari7800: "prosystem",
+  "7800": "prosystem",
   c64: "vice_x64",
   "commodore-64c": "vice_x64",
   colecovision: "gearcoleco",
@@ -317,6 +319,7 @@ export const platformSlugEJSCoreMap = {
   segacd: "genesis_plus_gx",
   // sega32: "picodrive", // Broken: https://github.com/EmulatorJS/EmulatorJS/issues/579
   gamegear: "genesis_plus_gx",
+  gg: "genesis_plus_gx",
   sms: "genesis_plus_gx",
   "sega-mark-iii": "genesis_plus_gx",
   "sega-game-box-9": "genesis_plus_gx",
@@ -324,6 +327,7 @@ export const platformSlugEJSCoreMap = {
   "master-system-super-compact": "genesis_plus_gx",
   "master-system-girl": "genesis_plus_gx",
   "genesis-slash-megadrive": "genesis_plus_gx",
+  genesi: "genesis_plus_gx",
   "sega-mega-drive-2-slash-genesis": "genesis_plus_gx",
   "sega-mega-jet": "genesis_plus_gx",
   "mega-pc": "genesis_plus_gx",

@@ -21,11 +21,11 @@ async function uploadPlatform({
 
 const PLATFORMS = [
   {
-    id: 1,
+    id: 35,
     slug: "2600",
     fs_slug: "2600",
-    igdb_id: 1,
-    moby_id: 1,
+    igdb_id: 35,
+    moby_id: 35,
     name: "Atari 2600",
     rom_count: 34,
     firmware_files: [],

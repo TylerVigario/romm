@@ -36,6 +36,7 @@ function onFullScreenChange() {
   <v-row v-if="rom && !gameRunning" no-gutters class="align-center">
     <v-col cols="5" class="text-truncate mx-1">
       <v-select
+        disabled
         density="compact"
         class="my-2"
         hide-details
@@ -51,6 +52,7 @@ function onFullScreenChange() {
         "
       />
       <v-select
+        disabled
         density="compact"
         class="my-2"
         hide-details
@@ -67,6 +69,7 @@ function onFullScreenChange() {
         "
       />
       <v-select
+        disabled
         density="compact"
         class="my-2"
         hide-details

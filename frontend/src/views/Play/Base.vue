@@ -57,6 +57,7 @@ function onFullScreenChange() {
         src="/assets/emulatorjs/powered_by_emulatorjs.png"
       />
       <v-select
+        disabled
         class="my-1"
         hide-details
         variant="outlined"
@@ -71,6 +72,7 @@ function onFullScreenChange() {
         "
       />
       <v-select
+        disabled
         class="my-1"
         hide-details
         variant="outlined"
@@ -86,6 +88,7 @@ function onFullScreenChange() {
         "
       />
       <v-select
+        disabled
         class="my-1"
         hide-details
         variant="outlined"

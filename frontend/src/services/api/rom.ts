@@ -6,10 +6,15 @@ import type {
   SearchRomSchema,
 } from "@/__generated__";
 import api from "@/services/api/index";
-import socket from "@/services/socket";
 import storeDownload from "@/stores/download";
 import type { Rom } from "@/stores/roms";
 import { getDownloadLink } from "@/utils";
+
+import ATARI2600 from "./fixtures/atari2600";
+
+export const ROMS: Record<number, CursorPage_RomSchema_> = {
+  1: ATARI2600,
+};
 
 export const romApi = api;
 
@@ -38,34 +43,43 @@ async function getRoms({
   orderBy?: string | null;
   orderDir?: string | null;
 }): Promise<{ data: CursorPage_RomSchema_ }> {
-  return api.get(`/roms`, {
-    params: {
-      platform_id: platformId,
-      size: size,
-      cursor: cursor,
-      search_term: searchTerm,
-      order_by: orderBy,
-      order_dir: orderDir,
-    },
-  });
+  if (platformId) {
+    return { data: ROMS[platformId] };
+  }
+
+  if (searchTerm) {
+    // Find matching roms across all platforms
+    const roms = Object.values(ROMS)
+      .map((r) => r.items)
+      .flat();
+    
+      return {
+      data: {
+        items: roms.filter((rom) =>
+          rom.name?.toLowerCase().includes(searchTerm.toLowerCase())
+        ),
+      },
+    };
+  }
+  return { data: { items: [] } };
 }
 
 async function getRecentRoms(): Promise<{ data: CursorPage_RomSchema_ }> {
-  return api.get("/roms", {
-    params: { size: 15, order_by: "id", order_dir: "desc" },
-  });
+  return { data: ATARI2600 };
 }
 
 async function getRom({ romId }: { romId: number }): Promise<{ data: Rom }> {
-  return api.get(`/roms/${romId}`);
+  for (let platform of Object.values(ROMS)) {
+    const rom = platform.items.find((rom) => rom.id === romId);
+    if (rom) return { data: rom };
+  }
+
+  return { data: {} as Rom };
 }
 
 function clearRomFromDownloads({ id }: { id: number }) {
   const downloadStore = storeDownload();
   downloadStore.remove(id);
-
-  // Disconnect socket when no more downloads are in progress
-  if (downloadStore.value.length === 0) socket.disconnect();
 }
 
 async function searchRom({
@@ -79,18 +93,8 @@ async function searchRom({
   searchBy: string;
   searchExtended: boolean;
 }): Promise<{ data: SearchRomSchema[] }> {
-  return api.get("/search/roms", {
-    params: {
-      rom_id: romId,
-      search_term: searchTerm,
-      search_by: searchBy,
-      search_extended: searchExtended,
-    },
-  });
+  return { data: [] };
 }
-
-// Listen for multi-file download completion events
-socket.on("download:complete", clearRomFromDownloads);
 
 // Used only for multi-file downloads
 async function downloadRom({
@@ -106,7 +110,6 @@ async function downloadRom({
 
   // Only connect socket if multi-file download
   if (rom.multi && files.length > 1) {
-    if (!socket.connected) socket.connect();
     storeDownload().add(rom.id);
 
     // Clear download state after 60 seconds in case error/timeout
@@ -129,18 +132,7 @@ async function updateRom({
   renameAsIGDB?: boolean;
   removeCover?: boolean;
 }): Promise<{ data: RomSchema }> {
-  var formData = new FormData();
-  if (rom.igdb_id) formData.append("igdb_id", rom.igdb_id.toString());
-  if (rom.moby_id) formData.append("moby_id", rom.moby_id.toString());
-  formData.append("name", rom.name || "");
-  formData.append("file_name", rom.file_name);
-  formData.append("summary", rom.summary || "");
-  formData.append("url_cover", rom.url_cover || "");
-  if (rom.artwork) formData.append("artwork", rom.artwork[0]);
-
-  return api.put(`/roms/${rom.id}`, formData, {
-    params: { rename_as_igdb: renameAsIGDB, remove_cover: removeCover },
-  });
+  return { data: rom };
 }
 
 async function deleteRoms({
@@ -150,10 +142,7 @@ async function deleteRoms({
   roms: Rom[];
   deleteFromFs: boolean;
 }): Promise<{ data: MessageResponse }> {
-  return api.post("/roms/delete", {
-    roms: roms.map((r) => r.id),
-    delete_from_fs: deleteFromFs,
-  });
+  return { data: { msg: "Deleted successfully" } };
 }
 
 async function updateRomNote({
@@ -165,10 +154,7 @@ async function updateRomNote({
   rawMarkdown: string;
   isPublic: boolean;
 }): Promise<{ data: RomSchema }> {
-  return api.put(`/roms/${romId}/note`, {
-    raw_markdown: rawMarkdown,
-    is_public: isPublic,
-  });
+  return { data: {} as RomSchema };
 }
 
 export default {

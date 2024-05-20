@@ -96,11 +96,48 @@ onBeforeUnmount(() => {
 });
 
 onBeforeMount(() => {
-  api.get("/heartbeat").then(({ data: data }) => {
-    heartbeat.set(data);
+  heartbeat.set({
+    VERSION: "3.1.0",
+    NEW_VERSION: "3.1.0",
+    WATCHER: {
+      ENABLED: false,
+      TITLE: "Rescan on filesystem change",
+      MESSAGE:
+        "Runs a scan when a change is detected in the library path, with a 5 minute delay",
+    },
+    SCHEDULER: {
+      RESCAN: {
+        ENABLED: false,
+        TITLE: "Scheduled rescan",
+        MESSAGE: "Rescans the entire library",
+        CRON: "0 3 * * *",
+      },
+      SWITCH_TITLEDB: {
+        ENABLED: false,
+        TITLE: "Scheduled Switch TitleDB update",
+        MESSAGE: "Updates the Nintendo Switch TitleDB file",
+        CRON: "0 4 * * *",
+      },
+    },
+    ANY_SOURCE_ENABLED: false,
+    METADATA_SOURCES: {
+      IGDB_API_ENABLED: false,
+      MOBY_API_ENABLED: false,
+    },
   });
-  api.get("/config").then(({ data: data }) => {
-    configStore.set(data);
+
+  configStore.set({
+    EXCLUDED_PLATFORMS: [],
+    EXCLUDED_SINGLE_EXT: [],
+    EXCLUDED_SINGLE_FILES: ["._*"],
+    EXCLUDED_MULTI_FILES: ["_*"],
+    EXCLUDED_MULTI_PARTS_EXT: [],
+    EXCLUDED_MULTI_PARTS_FILES: ["._*"],
+    PLATFORMS_BINDING: {},
+    PLATFORMS_VERSIONS: {},
+    ROMS_FOLDER_NAME: "roms",
+    FIRMWARE_FOLDER_NAME: "bios",
+    HIGH_PRIO_STRUCTURE_PATH: "/romm/library/roms",
   });
 });
 </script>
